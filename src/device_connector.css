@@ -1,0 +1,37 @@
+#connection {
+    clear:both;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#connection * {
+    margin-top: 0.5vh;
+    flex-grow: 1;
+    height: 5vh;
+}
+
+#connection input {
+    border: none;
+    border-radius: 0.5vh;
+    text-align: center;
+}
+
+/*#connection.connected{*/
+    /*height: 20px;*/
+    /*content: "connected!";*/
+    /*background-color: green;*/
+/*}*/
+
+#connection.connected *{
+    display: none;
+}
+
+#connection #disconnectButton{
+    display: none;
+}
+
+#connection.connected #disconnectButton{
+    display: block;
+}

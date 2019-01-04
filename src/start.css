@@ -1,0 +1,331 @@
+
+button {
+    text-align: center;
+    height: 5vh;
+    background-color: lightgrey;
+    border: 1px solid darkgrey;
+    color: black;
+    border-radius: 1vh;
+}
+
+button:hover {
+    background-color: #ddd;
+}
+
+#message {
+    padding: 0.5vh;
+    flex-grow: 1;
+    background-color: white;
+    border: none;
+    border-radius: 0.5vh;
+    font-size:calc(5vh);
+    word-wrap: break-word;
+}
+
+#encryptionLevel {
+    border:none;
+}
+
+#encryptionLevel.level0::after{
+    content: "Ah, this message is just slightly garbled! You'll fix this in a jiffy.";
+    display: block;
+    background-color: lawngreen;
+    padding: 2vh;
+    border:none;
+    margin-top: 2vh;
+    border-radius: 0.5vh;
+    font-size: calc(3vh);
+}
+
+#encryptionLevel.level1::after{
+    content: "Don't worry, this message is just a little garbeled.";
+    display: block;
+    background-color: greenyellow;
+    padding: 2vh;
+    border:none;
+    margin-top: 2vh;
+    border-radius: 0.5vh;
+    font-size: calc(3vh);
+}
+
+#encryptionLevel.level2::after{
+    content: "Hmm, someone has messed up this message. Well, no sweat, you'll work it out.";
+    display: block;
+    background-color: yellow;
+    padding: 2vh;
+    border:none;
+    margin-top: 2vh;
+    border-radius: 0.5vh;
+    font-size: calc(3vh);
+}
+
+#encryptionLevel.level3::after{
+    content: "This doesn't look too good. Maybe you can solve it with a bit of effort?";
+    display: block;
+    background-color: gold;
+    padding: 2vh;
+    border:none;
+    margin-top: 2vh;
+    border-radius: 0.5vh;
+    font-size: calc(3vh);
+}
+
+#encryptionLevel.level4::after{
+    content: "Whoever sent you this message really ought to get their eyes checked...";
+    display: block;
+    background-color: orange;
+    padding: 2vh;
+    border:none;
+    margin-top: 2vh;
+    border-radius: 0.5vh;
+    font-size: calc(3vh);
+}
+
+#encryptionLevel.level5::after{
+    content: "This is not just some standard garbeling... I hope you're up for the task!";
+    display: block;
+    background-color: darkorange;
+    padding: 2vh;
+    border:none;
+    margin-top: 2vh;
+    border-radius: 0.5vh;
+    font-size: calc(3vh);
+}
+
+#encryptionLevel.level6::after{
+    content: "Oh boy, this message is really garbeled... Good luck ungarbeling it!";
+    display: block;
+    background-color: orangered;
+    padding: 2vh;
+    border:none;
+    margin-top: 2vh;
+    border-radius: 0.5vh;
+    font-size: calc(3vh);
+}
+
+#encryptionLevel.level7::after{
+    content: "Woah, this must be a record garbeled message! You are pretty awesome if you work it out!";
+    display: block;
+    background-color: red;
+    padding: 2vh;
+    border:none;
+    margin-top: 2vh;
+    border-radius: 0.5vh;
+    font-size: calc(3vh);
+}
+#messageAbove {
+    position: relative;
+}
+
+#messageHeader::before {
+    content: 'Message:';
+    margin-top: 1vh;
+    margin-bottom: 0.5vh;
+    word-wrap: break-word;
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+}
+
+#copyButton {
+    float: right;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+
+#sendButton {
+    margin-top: 1vh;
+    height: 5vh;
+    display: none;
+}
+
+#recentMessagesButton {
+    margin-top: 1vh;
+    height: 5vh;
+    display: none;
+}
+
+#emulatorButton {
+    display: none;
+    margin-top: 1vh;
+    height: 5vh;
+}
+
+body.receiving #emulatorButton{
+    display: block;
+}
+
+body.fbConnected #emulatorButton{
+    display: none;
+}
+
+body.connected #sendButton {
+    display: block;
+}
+
+body.connected #recentMessagesButton {
+    display: block;
+}
+
+body.receiving {
+    background-color: gold;
+}
+
+body {
+    background-color: dodgerblue;
+}
+
+#receiverDiv {
+    font-size:calc(3vh);
+    flex-grow: 2;
+    display: flex;
+    position: relative;
+}
+
+#receiver {
+    font-size:calc(3vh);
+    height: 5vh;
+    border: none;
+    border-radius: 0.5vh;
+    text-align: center;
+    flex-grow: 1;
+}
+#receiverId {
+    display:none;
+}
+
+#activeSearchField {
+    font-size:calc(2vh);
+    position: absolute;
+    top: 7vh;
+    background-color: white;
+    display: none;
+    flex-direction: column;
+    border: 1px solid grey;
+    border-radius: 0.5vh;
+    padding: 1vh;
+    width: 100%;
+    z-index: 10;
+}
+
+#activeSearchField span {
+    cursor: pointer;
+}
+
+#puzzleType {
+    font-size:calc(3vh);
+    height: 5vh;
+    border: none;
+    border-radius: 0.5vh;
+    text-align: center;
+    flex-grow: 1;
+    margin-left: 1vh;
+}
+
+#puzzleTypeDefault {
+    color: #999;
+}
+
+#sendingOptions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 1vh;
+}
+
+body.receiving #sendingOptions {
+    display:none;
+}
+
+#emulator {
+    display: none;
+    background-color: inherit;
+    padding: 10px;
+    border:none;
+    border-radius: 0.5vh;
+    font-size: calc(3vh);
+    position: absolute;
+    top: 20vh;
+    left: 50%;
+    transform: translate(-50%, 0);
+    max-width: 80vh;
+    flex-wrap: wrap;
+    color:white;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.led {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    height: 10vh;
+    width: 10vh;
+    border: 1vh;
+    margin: 1vh;
+    cursor: pointer;
+}
+
+.led.on {
+     background-color: green;
+     border-color: lawngreen;
+ }
+
+.led.off {
+    background-color: red;
+    border-color: orangered;
+}
+
+.led.disabled {
+    background-color: grey;
+    border-color: darkgrey;
+}
+
+#fbHelpRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 1vh;
+}
+
+#fbLogin {
+    text-align: center;
+    flex-grow: 1;
+    height: 5vh;
+    background-color: royalblue;
+    border: 1px solid dodgerblue;
+    color: white;
+    border-radius: 1vh;
+}
+
+#fbLogin:hover {
+    background-color: #4771ff;
+    border: 1px solid dodgerblue;
+}
+
+#help {
+    border-radius: 50%;
+    height: 5vh;
+    width: 5vh;
+    flex-grow: 0;
+    margin-left: 1vh;
+
+}
+
+.colorPreview {
+    border-radius: 50%;
+    width: 1vh;
+    height: 1vh;
+    display: inline-block;
+    margin: 0.2vh;
+    position: relative;
+    border: 0.1vh solid black;
+}
+
+.colorPreviewWrap {
+    border-radius: 1vh;
+    display: flex;
+    background-color: white;
+    position: relative;
+    padding: 0.2vh;
+}

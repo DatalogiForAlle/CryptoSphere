@@ -1,0 +1,58 @@
+
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+@import url('https://fonts.googleapis.com/css?family=PT+Sans');
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+
+@import url('https://fonts.googleapis.com/css?family=Varela+Round');
+*{
+
+    font-family: Roboto, sans-serif;
+    font-size: 2.5vh;
+}
+
+body * {
+    /*overflow: hidden;*/
+    /*display: inline-block;*/
+    /*position: relative;*/
+}
+
+link, style {
+    display: none;
+}
+
+div {
+    /*border: 1px solid black;*/
+    /*min-width:100px;*/
+    /*min-height:100px;*/
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 1vh;
+    background-color: orange;
+    margin: 0;
+    width: calc(100vw - 2vh);
+    height: calc(80vh);
+}
+
+#popup {
+    display: none;
+    background-color: indianred;
+    padding: 10px;
+    border:none;
+    border-radius: 0.5vh;
+    font-size: calc(3vh);
+    position: absolute;
+    top: 3vh;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color:white;
+    z-index: 10;
+    width: fit-content;
+}
