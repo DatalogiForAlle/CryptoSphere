@@ -1,6 +1,13 @@
 CryptoSphere 2019
 =================
 
+The CryptoSphere is an educational concept developed at the University
+of Copenhagen, where students can experiment with alternative methods
+for human computer interaction.
+
+The concept has been developed as part of the FemTech project, read
+more about FemTech at [http://femtech.dk].
+
 Concept
 -------
 [Introduction to the CryptoSphere concept](http://www.femtech.dk/cryptosphere-open-design-community/)
@@ -22,5 +29,5 @@ Tutorial
  4. [Programming the LED strip](http://www.femtech.dk/cryptosphere-open-design-community/03-experiment-with-changing-the-ledstrip-code/)
  5. [Connecting a motion sensor](http://www.femtech.dk/cryptosphere-open-design-community/04-experimenting-with-sensor-movement-getting-to-know-the-accelerometer/)
  6. [Experimenting with the motion sensor](http://www.femtech.dk/cryptosphere-open-design-community/06-experimenting-with-the-accelerometer-and-gyroscope/)
- 7. [Constructing the cryptosphere](http://www.femtech.dk/cryptosphere-open-design-community/05-building-the-cryptosphere/)
- 8. [Sending messages with the cryptosphere](http://www.femtech.dk/cryptosphere-open-design-community/06-encrypting-and-decrypting-messages-with-crytopsphere/)
+ 7. [Making the CryptoSphere](http://www.femtech.dk/cryptosphere-open-design-community/05-building-the-cryptosphere/)
+ 8. [Sending messages with the CryptoSphere](http://www.femtech.dk/cryptosphere-open-design-community/06-encrypting-and-decrypting-messages-with-crytopsphere/)
