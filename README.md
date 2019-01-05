@@ -24,6 +24,10 @@ Materials
 Tutorial
 --------
  1. [Installation](http://www.femtech.dk/cryptosphere-open-design-community/01-installing-arduino-ide-sparkfun-thing-dev-board-esp8266-library-folders-for-programming-ledstrips-and-accelerometer/)
+ 
+   - Use the libraries found in arduino-libraries in this repository,
+     not any other version. It will not work with newer versions.
+     
  2. [Making it blink](http://www.femtech.dk/cryptosphere-open-design-community/02-hello-world-making-the-thing-blink/)
  3. [Connecting an LED strip](http://www.femtech.dk/cryptosphere-open-design-community/03-adding-a-ledstrip-to-the-thing/)
  4. [Programming the LED strip](http://www.femtech.dk/cryptosphere-open-design-community/03-experiment-with-changing-the-ledstrip-code/)

@@ -142,7 +142,7 @@ boolean storeMessage()
 
   DynamicJsonBuffer jsonBuffer(2048);
   JsonObject& root = jsonBuffer.createObject();
-  char * url = "/storeMessage.php";
+  char * url = "/cryptosphere/storeMessage.php";
   root["sender"] = userID;
   root["recipient"] = recipient;
   root["recipient_name"] = recipient_name;
@@ -548,12 +548,12 @@ int detectMovement(float rotationThreshold, float forceThreshold, boolean resetA
     accumRotations[0] += gx;
     accumRotations[1] += gy;
     accumRotations[2] += gz;
-    rotationExtremes[0][0] = min(rotationExtremes[0][0], accumRotations[0]);
-    rotationExtremes[0][1] = max(rotationExtremes[0][1], accumRotations[0]);
-    rotationExtremes[1][0] = min(rotationExtremes[1][0], accumRotations[1]);
-    rotationExtremes[1][1] = max(rotationExtremes[1][1], accumRotations[1]);
-    rotationExtremes[2][0] = min(rotationExtremes[2][0], accumRotations[2]);
-    rotationExtremes[2][1] = max(rotationExtremes[2][1], accumRotations[2]);
+    rotationExtremes[0][0] = std::min(rotationExtremes[0][0], accumRotations[0]);
+    rotationExtremes[0][1] = std::max(rotationExtremes[0][1], accumRotations[0]);
+    rotationExtremes[1][0] = std::min(rotationExtremes[1][0], accumRotations[1]);
+    rotationExtremes[1][1] = std::max(rotationExtremes[1][1], accumRotations[1]);
+    rotationExtremes[2][0] = std::min(rotationExtremes[2][0], accumRotations[2]);
+    rotationExtremes[2][1] = std::max(rotationExtremes[2][1], accumRotations[2]);
     accumRotation += rotation;
     accumForce += force;
     measurements += 1;
@@ -691,7 +691,7 @@ int colorPuzzleLooping() {
     lastMinimalMovement = millis();
     updateLedRange(highlighted, NUM_LEDS-1, strip.Color(0, 0, 0), false);
     ledColors[highlighted] = 0;
-    highlighted = max(0, highlighted - 1);
+    highlighted = std::max(0, highlighted - 1);
     restoreLedsFromState();
   }
   else if (type == 2 || type == 20) {
