@@ -326,6 +326,35 @@ class DB extends SQLite3 {
         return "Invalid access token or user-id: " . $accessToken . " || " . $userId;
     }
 
+    // Retrieve 20 last messages
+    function getLast20Messages() {
+        $sql = "
+            SELECT 
+              MESSAGES.RECIPIENT_NAME AS RECIPIENT,
+              PUZZLES.PUZZLE_TYPE AS PUZZLE_TYPE,
+              COMBINATORIC_PUZZLES.ENCRYPTION_LEVEL AS ENCRYPTION_LEVEL,
+              COLOR_PUZZLES.COLORJSON AS COLORJSON
+            FROM MESSAGES
+            LEFT JOIN PUZZLES
+            ON PUZZLES.MESSAGE_ID = MESSAGES.GUID
+            LEFT JOIN COLOR_PUZZLES
+            ON COLOR_PUZZLES.GUID = PUZZLES.PUZZLE_ID
+            LEFT JOIN COMBINATORIC_PUZZLES
+            ON COMBINATORIC_PUZZLES.GUID = PUZZLES.PUZZLE_ID
+            LIMIT 20
+        ";
+
+        $cmd = $this->prepare($sql);
+        $cmd->bindValue(":USERID", $userId, SQLITE3_TEXT);
+        $results = $cmd->execute();
+        $data = [];
+        while ($row = $results->fetchArray()) {
+            $row["RECIPIENT"] = userIdToName($row["RECIPIENT"]);
+            $data[] = $row;
+        }
+        return $data;
+    }
+
     // PRIVATE
     private function createTables() {
         $sql = "
