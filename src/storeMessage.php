@@ -218,7 +218,7 @@ $data['message'] .= $msg."\n\n"
     ."Sent by ".userIdToName($sender)."\n"
     ."Decode here: http://thesis.belhage.dk/start.php?guid=".$msgGuid."\n";
 
-tweet($data['message'])
+tweet($data['message']);
 
 // $page_id = '227314294507484'; // Facebook page id
 // if ($userAccessToken != "" && false) {
@@ -242,3 +242,4 @@ tweet($data['message'])
 //     $cmd->execute();
 // }
 echo "{\"type\": \"messageSent\", \"guid\": \"".$msgGuid."\"}\n";
+?>
