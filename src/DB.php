@@ -288,7 +288,7 @@ class DB extends SQLite3 {
         if ($messageData = $this->getMessageData($messageId)) {
             $asPosted = $messageData["MESSAGE"]."\n\n"
                 //."Sent by ".$messageData["SENDER"]."\n"
-                ."Decode here: http://thesis.belhage.dk/start.php?guid=".$messageId;
+                ."Decode here: http://datanauterne.dk/cryptosphere/start.php?guid=".$messageId;
             return $asPosted;
         }
         return null;

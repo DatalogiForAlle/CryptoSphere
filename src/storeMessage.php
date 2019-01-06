@@ -217,8 +217,9 @@ if ($recipient != "all") {
 
 $data['message'] .= $msg."\n\n"
     ."Sent by ".$sender."\n"
-    ."Decode here: http://thesis.belhage.dk/start.php?guid=".$msgGuid."\n";
+    ."Decode here: http://datanauterne.dk/cryptosphere/start.php?guid=".$msgGuid."\n";
 
+//print_r(tweet($data['message']));
 tweet($data['message']);
 
 // $page_id = '227314294507484'; // Facebook page id
