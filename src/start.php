@@ -78,7 +78,7 @@ if (isset($_GET["guid"]))
     <script>
         window.fbAsyncInit = function() {
             FB.init({
-                appId      : '215632238985529',
+                appId      : '325513291626400',
                 cookie     : true,
                 xfbml      : true,
                 version    : 'v2.12'
@@ -101,7 +101,7 @@ if (isset($_GET["guid"]))
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
             js = d.createElement(s); js.id = id;
-            js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=215632238985529&autoLogAppEvents=1';
+            js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=325513291626400&autoLogAppEvents=1';
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
     <div id="popup"></div>
