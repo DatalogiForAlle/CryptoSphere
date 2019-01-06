@@ -28,7 +28,7 @@ function facebookRequest($type, $endpoint, $data, $access_token) {
     try {
         $fb = new Facebook\Facebook([
             'app_id' => '325513291626400',
-            'app_secret' => 'f2dc451d3b0b40110c888f9492b5c542,
+            'app_secret' => 'f2dc451d3b0b40110c888f9492b5c542',
             'default_graph_version' => 'v2.12',
         ]);
     } catch (Exception $e) {
