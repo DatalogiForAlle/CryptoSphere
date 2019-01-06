@@ -73,7 +73,7 @@ if($cmd = $db->prepare($sql)) {
     $cmd->bindValue(":RECIPIENT", $recipient, SQLITE3_TEXT);
     $cmd->bindValue(":RECIPIENT_NAME", $recipient_name, SQLITE3_TEXT);
     $cmd->bindValue(":SENDER", $sender, SQLITE3_TEXT);
-    $cmd->bindValue(":SENDER_NAME", userIdToName($sender), SQLITE3_TEXT);
+    $cmd->bindValue(":SENDER_NAME", $sender, SQLITE3_TEXT);
     $cmd->bindValue(":MESSAGE", $msg, SQLITE3_TEXT);
     $cmd->bindValue(":MESSAGE_INTACT", $msg_intact, SQLITE3_TEXT);
     $cmd->execute();
@@ -208,14 +208,14 @@ if ($recipient != "all") {
     if ($recipient_name != "") {
         $data['message'] .= "To ".$recipient_name.":\n";
     } else {
-        $data['message'] .= "To ".userIdToName($recipient).":\n";
+        $data['message'] .= "To ".$recipient.":\n";
     }
 } else {
     $data['message'] .= "To everyone:\n";
 }
 
 $data['message'] .= $msg."\n\n"
-    ."Sent by ".userIdToName($sender)."\n"
+    ."Sent by ".$sender."\n"
     ."Decode here: http://thesis.belhage.dk/start.php?guid=".$msgGuid."\n";
 
 tweet($data['message']);
@@ -224,7 +224,7 @@ tweet($data['message']);
 // if ($userAccessToken != "" && false) {
 //     $graphNode = facebookRequest("POST", $page_id.'/feed', $data, $userAccessToken);
 // } else {
-//     $data['message'] .= "Sent by ".userIdToName($sender)."\n";
+//     $data['message'] .= "Sent by ".$sender."\n";
 //     $graphNode = facebookRequest("POST", $page_id.'/feed', $data, null);
 // }
 // $postId = $graphNode->getField("id");
