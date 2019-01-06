@@ -215,28 +215,30 @@ if ($recipient != "all") {
 }
 
 $data['message'] .= $msg."\n\n"
-//    ."Sent by ".userIdToName($sender)."\n"
+    ."Sent by ".userIdToName($sender)."\n"
     ."Decode here: http://thesis.belhage.dk/start.php?guid=".$msgGuid."\n";
 
-$page_id = '227314294507484'; // Facebook page id
-if ($userAccessToken != "" && false) {
-    $graphNode = facebookRequest("POST", $page_id.'/feed', $data, $userAccessToken);
-} else {
-    $data['message'] .= "Sent by ".userIdToName($sender)."\n";
-    $graphNode = facebookRequest("POST", $page_id.'/feed', $data, null);
-}
-$postId = $graphNode->getField("id");
+tweet($data['message'])
 
-$sql = "
-    UPDATE MESSAGES
-    SET FB_POST_ID = :FB_POST_ID
-    WHERE GUID = :GUID
-";
+// $page_id = '227314294507484'; // Facebook page id
+// if ($userAccessToken != "" && false) {
+//     $graphNode = facebookRequest("POST", $page_id.'/feed', $data, $userAccessToken);
+// } else {
+//     $data['message'] .= "Sent by ".userIdToName($sender)."\n";
+//     $graphNode = facebookRequest("POST", $page_id.'/feed', $data, null);
+// }
+// $postId = $graphNode->getField("id");
 
-if($cmd = $db->prepare($sql)) {
-    $guid = getGUID();
-    $cmd->bindValue(":GUID", $guid);
-    $cmd->bindValue(":FB_POST_ID", $postId, SQLITE3_TEXT);
-    $cmd->execute();
-}
+// $sql = "
+//     UPDATE MESSAGES
+//     SET FB_POST_ID = :FB_POST_ID
+//     WHERE GUID = :GUID
+// ";
+
+// if($cmd = $db->prepare($sql)) {
+//     $guid = getGUID();
+//     $cmd->bindValue(":GUID", $guid);
+//     $cmd->bindValue(":FB_POST_ID", $postId, SQLITE3_TEXT);
+//     $cmd->execute();
+// }
 echo "{\"type\": \"messageSent\", \"guid\": \"".$msgGuid."\"}\n";
