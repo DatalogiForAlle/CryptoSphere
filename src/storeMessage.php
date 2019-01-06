@@ -7,7 +7,7 @@
  */
 
 require_once('global_requirements.php');
-require_once('twitter.php')
+require_once('twitter.php');
 
 $db = new DB();
 
