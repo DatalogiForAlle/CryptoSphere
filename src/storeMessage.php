@@ -7,7 +7,6 @@
  */
 
 require_once('global_requirements.php');
-require_once('twitter.php');
 
 $db = new DB();
 
@@ -16,7 +15,9 @@ $data = json_decode($jsonData, true);
 
 if(!(
     array_key_exists('sender', $data)
+    && array_key_exists('password', $data)
     && array_key_exists('recipient', $data)
+    && array_key_exists('recipient_name', $data)
     && array_key_exists('message', $data)
     && array_key_exists('message_intact', $data)
     && array_key_exists('puzzle_type', $data)
@@ -26,17 +27,16 @@ if(!(
 }
 
 $sender = $data['sender'];
+$password = $data['password'];
 $recipient = $data['recipient'];
-$recipient_name = $recipient;
+$recipient_name = $$data['recipient_name'];
 
 $msg = $data['message'];
 $msg_intact = $data['message_intact'];
 $puzzle_type = $data['puzzle_type'];
 $puzzle_data = $data['puzzle_data'];
-if (array_key_exists('user_access_token', $data)) {
-    $userAccessToken = $data['user_access_token'];
-} else {
-    $userAccessToken = "";
+if (!$db->validateLogin($sender, $password)) {
+    exit;
 }
 
 
@@ -54,7 +54,8 @@ $sql = "
       SENDER,
       SENDER_NAME,
       MESSAGE,
-      MESSAGE_INTACT
+      MESSAGE_INTACT,
+      UNIX
     )
     VALUES
     (
@@ -64,7 +65,8 @@ $sql = "
       :SENDER,
       :SENDER_NAME,
       :MESSAGE,
-      :MESSAGE_INTACT
+      :MESSAGE_INTACT,
+      :UNIX
     )
 ";
 
@@ -74,9 +76,10 @@ if($cmd = $db->prepare($sql)) {
     $cmd->bindValue(":RECIPIENT", $recipient, SQLITE3_TEXT);
     $cmd->bindValue(":RECIPIENT_NAME", $recipient_name, SQLITE3_TEXT);
     $cmd->bindValue(":SENDER", $sender, SQLITE3_TEXT);
-    $cmd->bindValue(":SENDER_NAME", $sender, SQLITE3_TEXT);
+    $cmd->bindValue(":SENDER_NAME", $db->userIdToName($sender), SQLITE3_TEXT);
     $cmd->bindValue(":MESSAGE", $msg, SQLITE3_TEXT);
     $cmd->bindValue(":MESSAGE_INTACT", $msg_intact, SQLITE3_TEXT);
+    $cmd->bindValue(":UNIX", time(), SQLITE3_INTEGER);
     $cmd->execute();
 }
 
@@ -203,45 +206,4 @@ elseif ($puzzle_type == "binary") {
 
     }
 }
-
-$data['message'] = "";
-if ($recipient != "all") {
-    if ($recipient_name != "") {
-        $data['message'] .= "To ".$recipient_name.":\n";
-    } else {
-        $data['message'] .= "To ".$recipient.":\n";
-    }
-} else {
-    $data['message'] .= "To everyone:\n";
-}
-
-$data['message'] .= $msg."\n\n"
-    ."Sent by ".$sender."\n"
-    ."Decode here: http://datanauterne.dk/cryptosphere/start.php?guid=".$msgGuid."\n";
-
-//print_r(tweet($data['message']));
-tweet($data['message']);
-
-// $page_id = '227314294507484'; // Facebook page id
-// if ($userAccessToken != "" && false) {
-//     $graphNode = facebookRequest("POST", $page_id.'/feed', $data, $userAccessToken);
-// } else {
-//     $data['message'] .= "Sent by ".$sender."\n";
-//     $graphNode = facebookRequest("POST", $page_id.'/feed', $data, null);
-// }
-// $postId = $graphNode->getField("id");
-
-// $sql = "
-//     UPDATE MESSAGES
-//     SET FB_POST_ID = :FB_POST_ID
-//     WHERE GUID = :GUID
-// ";
-
-// if($cmd = $db->prepare($sql)) {
-//     $guid = getGUID();
-//     $cmd->bindValue(":GUID", $guid);
-//     $cmd->bindValue(":FB_POST_ID", $postId, SQLITE3_TEXT);
-//     $cmd->execute();
-// }
 echo "{\"type\": \"messageSent\", \"guid\": \"".$msgGuid."\"}\n";
-?>

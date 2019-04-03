@@ -10,3 +10,5 @@ require_once('global_requirements.php');
 
 $db = new DB();
 $db->reset();
+
+?>

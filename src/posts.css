@@ -1,0 +1,40 @@
+body {
+    background-color: white;
+    justify-content: flex-start;
+}
+
+.post-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.post {
+    display: block;
+    background-color: rgb(0, 89, 255);
+    border-radius: 1vh;
+    padding: 0.5vh;
+    color: white;
+    text-transform: none;
+    text-decoration: none;
+    margin: 0.5vh;
+}
+
+.post.color {
+    background-image: linear-gradient(to right,rgb(180, 0, 255) -5%, rgb(0, 89, 255), rgb(0, 255, 149) 105%);
+}
+
+.post[disabled="true"] {
+    background-color: rgb(99, 99, 99);
+    background-image: none;
+    cursor: default;
+}
+
+.sender::before {
+    content: 'From: ';
+    font-weight: bold;
+}
+
+.recipient::before {
+    content: 'To: ';
+    font-weight: bold;
+}

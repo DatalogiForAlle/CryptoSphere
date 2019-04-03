@@ -30,8 +30,8 @@ switch ($function) {
             echo "false";
         }
         break;
-    case "getMessageAsPosted":
-        if($res = $db->getMessageAsPosted(...$parameters)) {
+    case "validateLogin":
+        if($res = $db->validateLogin(...$parameters)) {
             echo $res;
         } else {
             echo "false";
@@ -63,6 +63,13 @@ switch ($function) {
             echo json_encode($res);
         } else {
             echo "false";
+        }
+        break;
+    case "searchPeople":
+        if($res = $db->searchPeople(...$parameters)) {
+            echo json_encode($res);
+        } else {
+            echo "[]";
         }
         break;
     default:

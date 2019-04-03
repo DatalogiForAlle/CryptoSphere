@@ -14,9 +14,7 @@ class DB extends SQLite3 {
 
     // PRIVATE PROPETIES
     private static $defaultDB = "db.sqlite";
-    private static $defaultPath = "";
-
-
+    private static $defaultPath = "db/";
 
     // PUBLIC
     public function __construct($connectionString = false, $reset = false)
@@ -53,6 +51,40 @@ class DB extends SQLite3 {
         $results = $cmd->execute();
         if ($row = $results->fetchArray()) {
             return $row["IP"];
+        }
+        return null;
+    }
+
+    function userIdToName($userID) {
+        $sql = "
+            SELECT *
+            FROM DEVICES
+            WHERE USER_ID = :USER_ID
+        ";
+
+        $cmd = $this->prepare($sql);
+        $cmd->bindValue(":USER_ID", $userID, SQLITE3_TEXT);
+        $results = $cmd->execute();
+        if ($row = $results->fetchArray()) {
+            return $row["USER_NAME"];
+        }
+        return $userID;
+    }
+
+    function validateLogin($userID, $password) {
+        $sql = "
+            SELECT *
+            FROM DEVICES
+            WHERE USER_ID = :USER_ID
+            AND PASSWORD = :PASSWORD
+        ";
+
+        $cmd = $this->prepare($sql);
+        $cmd->bindValue(":USER_ID", $userID, SQLITE3_TEXT);
+        $cmd->bindValue(":PASSWORD", $password, SQLITE3_TEXT);
+        $results = $cmd->execute();
+        if ($row = $results->fetchArray()) {
+            return "true";
         }
         return null;
     }
@@ -284,18 +316,8 @@ class DB extends SQLite3 {
         return false;
     }
 
-    function getMessageAsPosted($messageId) {
-        if ($messageData = $this->getMessageData($messageId)) {
-            $asPosted = $messageData["MESSAGE"]."\n\n"
-                //."Sent by ".$messageData["SENDER"]."\n"
-                ."Decode here: http://datanauterne.dk/cryptosphere/start.php?guid=".$messageId;
-            return $asPosted;
-        }
-        return null;
-    }
-
-    function getRecentMessages($accessToken, $userId) {
-        if (validateToken($accessToken, $userId)) {
+    function getRecentMessages($userId, $password) {
+        if (validateLogin($userId, $password)) {
             $sql = "
                 SELECT 
                   MESSAGES.RECIPIENT_NAME AS RECIPIENT,
@@ -323,7 +345,27 @@ class DB extends SQLite3 {
             }
             return $data;
         }
-        return "Invalid access token or user-id: " . $accessToken . " || " . $userId;
+        return null;
+    }
+
+    function searchPeople($str) {
+        $sql = "
+            SELECT
+                USER_NAME,
+                USER_ID
+            FROM DEVICES
+            WHERE USER_NAME LIKE :STR OR USER_ID LIKE :STR
+            LIMIT 5
+        ";
+
+        $cmd = $this->prepare($sql);
+        $cmd->bindValue(":STR", $str."%", SQLITE3_TEXT);
+        $results = $cmd->execute();
+        $data = [];
+        while ($row = $results->fetchArray()) {
+            $data[] = $row;
+        }
+        return $data;
     }
 
     // PRIVATE
@@ -339,6 +381,8 @@ class DB extends SQLite3 {
             
             CREATE TABLE DEVICES (
                 USER_ID,
+                USER_NAME,
+                PASSWORD,
                 IP
             );
             CREATE UNIQUE INDEX DEVICES_IDX1
@@ -352,7 +396,7 @@ class DB extends SQLite3 {
                 SENDER_NAME,
                 MESSAGE,
                 MESSAGE_INTACT,
-                FB_POST_ID
+                UNIX
             );
             CREATE UNIQUE INDEX MESSAGES_IDX1
             ON MESSAGES (GUID, SENDER);

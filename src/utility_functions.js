@@ -19,37 +19,22 @@ function numericToCharacters(numeric) {
     return String.fromCharCode.apply(this, numericArray);
 }
 
-function serverside_function(fun, parameters, callback = null) {
-    var async = true;
+function serverside_function(fun, parameters) {
+    return new Promise( (resolve, reject) => {
+        var request = new XMLHttpRequest();
 
-    var request = new XMLHttpRequest();
-
-    if (callback == null) {
-        async = false
-    }
-
-    if (async)
-    {
         request.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
-                if (this.responseText !== "false") {
-                    callback(this.responseText);
-                }
-                else
-                {
-                    callback(false);
-                }
+                    clearTimeout(timeout);
+                    resolve(this.responseText);
             }
         };
-    }
 
-    request.open("GET", "client_handles.php?function=" + fun + "&parameters=" + JSON.stringify(parameters), async);
-    request.send();
+        request.open("GET", "client_handles.php?function=" + fun + "&parameters=" + JSON.stringify(parameters), true);
+        request.send();
 
-    if (!async)
-    {
-        return request.responseText;
-    }
+        let timeout = setTimeout(10000, () => {reject("Server timeout: client_handles.php?function=" + fun + "&parameters=" + JSON.stringify(parameters))})
+    })
 }
 
 function popupMsg(message, persistent = false) {
