@@ -7,6 +7,7 @@
  */
 
 require_once('global_requirements.php');
+require_once('twitter.php');
 
 $db = new DB();
 
@@ -206,4 +207,25 @@ elseif ($puzzle_type == "binary") {
 
     }
 }
+
+$tweet = "";
+if ($recipient != "all") {
+    if ($recipient_name != "") {
+        $tweet .= "To ".$recipient_name.":\n";
+    } else {
+        $tweet .= "To ".$recipient.":\n";
+    }
+} else {
+    $tweet .= "To everyone:\n";
+}
+
+$tweet .= $msg."\n\n"
+    ."Sent by ".$sender."\n"
+    ."Decode here: http://datanauterne.dk/cryptosphere/?guid=".$msgGuid."\n";
+
+//print_r($tweet);
+tweet($tweet);
+
 echo "{\"type\": \"messageSent\", \"guid\": \"".$msgGuid."\"}\n";
+
+?>
